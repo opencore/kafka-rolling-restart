@@ -1,0 +1,13 @@
+---
+- name: Restart Kafka
+  tags: service
+  service: name="{{ KAFKA_SERVICE_NAME }}" state=restarted
+
+- name: Wait for all partitions to be caught up again
+  shell: "{{ KAFKA_TOPICS_COMMAND }} --describe --zookeeper {{ ZOOKEEPER_CONNECT }} --under-replicated-partitions"
+  register: result
+  retries: "{{ NUMBER_OF_RETRIES }}"
+  delay: "{{ DELAY_BETWEEN_RETRIES }}"
+  until: result.stdout == ""
+
+
