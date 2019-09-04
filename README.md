@@ -32,10 +32,10 @@ Example Playbook
 
 For this role to work properly, it is very important to include _serial: 1_ in your playbook. Otherwise it will not be a rolling restart, as multiple hosts will be restarted at the same time, potentially leading to downtime.
 
-`- hosts: kafka
-  serial: 1
-  roles:
-    - kafka-rolling-restart`
+    - hosts: kafka
+      serial: 1
+      roles:
+        - kafka-rolling-restart
 
 License
 -------
